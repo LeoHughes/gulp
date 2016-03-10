@@ -1,1 +1,1 @@
-module.exports="kkk";
+function test(){console.log("test")}
