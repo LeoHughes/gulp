@@ -1,6 +1,6 @@
 # gulp工作流demo
 
-------
+
 
 #### **文件夹结构说明**
 
@@ -16,7 +16,7 @@ gulpfile.js -- gulp配置文件
 
 package.json -- 引入的npm工具包和项目说明文件
 
-
+--
 
 
 #### **gulp任务说明**
