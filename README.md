@@ -60,4 +60,5 @@ gulp default
 ```sh
 
 用 gulp-clean-css 替代 gulp-minify-css
+新增 gulp-html-beautify 输出html美化
 ```
