@@ -35,7 +35,7 @@ libs 将libs文件夹写入build
 
 scripts 合并及压缩js
 
-
+--
 
 
 #### **运行**
@@ -45,7 +45,7 @@ gulp default
 
 访问http://localhost:8000/build/html/index.html
 
-
+--
 
 
 #### **更新说明**
