@@ -57,8 +57,18 @@ gulp default
 
 #### **更新说明**
 
+
+#### **替换**
+
+```sh
+用 gulp-clean-css 替代 gulp-minify-css
+用 del模块 替代 gulp-clean 
+```
+
+#### **新增**
+
 ```sh
 
-用 gulp-clean-css 替代 gulp-minify-css
 新增 gulp-html-beautify 输出html美化
+
 ```
