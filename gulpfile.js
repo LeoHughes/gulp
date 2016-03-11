@@ -14,7 +14,7 @@ var webserver = require('gulp-webserver'),      //本地webserver服务器
     jade = require('gulp-jade'),                //jade模板编译
     less = require('gulp-less'),                //less编译
     minifycss = require('gulp-minify-css'),     //压缩css
-    uglify = require('gulp-uglify'),            //js压缩
+    cleanCSS = require('gulp-clean-css'),       //js压缩
     webpack = require('webpack-stream'),        //js模块打包
     imgmin = require('gulp-imagemin');          //图片压缩
 
@@ -39,7 +39,7 @@ gulp.task('watch-jade',function(){
 gulp.task('lessToCss', function () {
     gulp.src('src/less/*.less') //任务文件
         .pipe(less()) //编译
-        .pipe(minifycss()) //压缩css
+        .pipe(cleanCSS()) //压缩css
         .pipe(rename({suffix:'.min'}))  //重命名
         .pipe(gulp.dest('build/css')); //输出文件夹
 });
