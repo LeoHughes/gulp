@@ -8,7 +8,17 @@ html
 	body
 		.container
 			.jumbotron
-				h1 gulp工作流demo
-				p 现在gulp开始工作了
-									
+				- var text = '现在gulp开始工作了.';
+				h4 gulp工作流demo
+				p #{text}
+
+			.col-xs-12
+				- var arr = ['john','tomi','treey'];
+				mixin list(arr)
+					each value in arr
+						li=value
+
+				ul
+					+list(arr)
+
 	include layout/footer.jade

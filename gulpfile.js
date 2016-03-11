@@ -6,17 +6,18 @@
 var gulp = require('gulp');
 
 //导入工具包
-var webserver = require('gulp-webserver'),      //本地webserver服务器
-    livereload = require('gulp-livereload'),    //网页自动刷新（服务器控制客户端同步刷新）
-    rename = require('gulp-rename'),            //文件重命名
-    concat = require('gulp-concat'),            //文件合并
-    clean = require('gulp-clean'),              //文件夹清空
-    jade = require('gulp-jade'),                //jade模板编译
-    less = require('gulp-less'),                //less编译
-    cleanCSS = require('gulp-clean-css'),       //压缩css
-    cleanCSS = require('gulp-clean-css'),       //js压缩
-    webpack = require('webpack-stream'),        //js模块打包
-    imgmin = require('gulp-imagemin');          //图片压缩
+var webserver = require('gulp-webserver'),          //本地webserver服务器
+    livereload = require('gulp-livereload'),        //网页自动刷新（服务器控制客户端同步刷新）
+    rename = require('gulp-rename'),                //文件重命名
+    concat = require('gulp-concat'),                //文件合并
+    clean = require('gulp-clean'),                  //文件夹清空
+    jade = require('gulp-jade'),                    //jade模板编译
+    htmlBeautify = require('gulp-html-beautify'),   //html美化
+    less = require('gulp-less'),                    //less编译
+    cleanCSS = require('gulp-clean-css'),           //压缩css
+    uglify = require('gulp-uglify'),                //js压缩
+    webpack = require('webpack-stream'),            //js模块打包
+    imgmin = require('gulp-imagemin');              //图片压缩
 
 
 
@@ -25,6 +26,7 @@ var webserver = require('gulp-webserver'),      //本地webserver服务器
 gulp.task('jade',function(){
     gulp.src(['views/**/*.jade','views/*.jade','!views/layout/*jade'])
         .pipe(jade({pretty: true}))
+        .pipe(htmlBeautify({indentSize: 1}))    //标签缩进
         .pipe(gulp.dest('build/html'));
 })
 
@@ -69,7 +71,7 @@ gulp.task('watch-js',function(){
 /**util**/
 //清空build资源文件夹
 gulp.task('clean',function(){
-   gulp.src(['build/css','build/js','build/html','build/libs','build/images'])
+   gulp.src(['build/css','build/js','build/html','build/libs','build/images'],{read:false})
        .pipe(clean())
 });
 
