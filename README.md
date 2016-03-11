@@ -19,6 +19,7 @@ package.json -- 引入的npm工具包和项目说明文件
 
 
 #### **gulp任务说明**
+
 clean 清空build文件夹
 
 default 执行默认任务(详细说明看gulp配置文件)
@@ -42,3 +43,10 @@ npm install
 gulp default
 
 访问http://localhost:8000/build/html/index.html
+
+
+----------
+
+#### **更新说明**
+
+用 gulp-clean-css 替代 gulp-minify-css
