@@ -15,7 +15,6 @@ gulpfile.js -- gulp配置文件
 package.json -- 引入的npm工具包和项目说明文件
 
 
-----------
 
 
 #### **gulp任务说明**
@@ -35,7 +34,7 @@ libs 将libs文件夹写入build
 scripts 合并及压缩js
 
 
-----------
+
 
 #### **运行**
 npm install
@@ -45,7 +44,7 @@ gulp default
 访问http://localhost:8000/build/html/index.html
 
 
-----------
+
 
 #### **更新说明**
 
