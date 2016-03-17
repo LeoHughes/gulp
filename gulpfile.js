@@ -103,5 +103,8 @@ gulp.task('webserver',function(){   //启动服务器先执行编译less、压�
 });
 
 
+/****编译和监控文件****/
+gulp.task('build',['webserver','libs','imgmin','watch-less','watch-js','watch-jade']);
+
 /****默认任务****/
-gulp.task('default',['clean','webserver','libs','imgmin','watch-less','watch-js','watch-jade']);
+gulp.task('default',['clean','build']);
