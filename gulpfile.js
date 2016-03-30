@@ -6,9 +6,7 @@
 var gulp = require('gulp');
 
 //导入工具包
-var webserver = require('gulp-webserver'),          //本地webserver服务器
-    livereload = require('gulp-livereload'),        //网页自动刷新（服务器控制客户端同步刷新）
-    browserSync = require('browser-Sync'),          //browser-sync
+var browserSync = require('browser-Sync'),          //browser-sync [网页自动刷新（服务器控制客户端同步刷新）]
     reload = browserSync.reload,
     rename = require('gulp-rename'),                //文件重命名
     concat = require('gulp-concat'),                //文件合并
