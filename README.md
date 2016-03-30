@@ -50,6 +50,9 @@ npm install
 gulp default
 
 访问http://localhost:8000/build/html/index.html
+
+--说明
+若重启default任务，build文件夹有部分文件未写入需要多重启几次default任务
 ```
 
 --
@@ -63,6 +66,7 @@ gulp default
 ```sh
 用 gulp-clean-css 替代 gulp-minify-css
 用 del模块 替代 gulp-clean 
+用 brower-sync 替代 gulp-webserver 和 gulp-livereload
 ```
 
 #### **新增**

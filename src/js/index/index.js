@@ -1,1 +1,3 @@
-module.exports = 'kkk';
+window.util = {
+    'name':'john'
+}
