@@ -66,7 +66,7 @@ gulp default
 ```sh
 用 gulp-clean-css 替代 gulp-minify-css
 用 del模块 替代 gulp-clean 
-用 brower-sync 替代 gulp-webserver 和 gulp-livereload
+用 browsersync 替代 gulp-webserver 和 gulp-livereload
 ```
 
 #### **新增**
