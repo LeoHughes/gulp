@@ -1,3 +1,4 @@
 window.util = {
-    'name':'john'
+    'name':'john',
+    'age':14
 }
