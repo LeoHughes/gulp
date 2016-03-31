@@ -8,7 +8,7 @@ module.exports ={
   //  html模版引擎
   'html':['./src/views/**/*.jade','./src/views/*.jade','!./src/views/layout/*jade'],
   //  less文件夹
-  'less':'./src/less/*.less',
+  'less':['src/less/*.less','src/less/**/*.less'],
   //  客户端使用的js
   'scripts':['./src/js/*.js','./src/js/**/*.js']
 }
