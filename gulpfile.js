@@ -16,6 +16,7 @@ var browserSync = require('browser-Sync'),          //browser-sync [网页自动
     htmlBeautify = require('gulp-html-beautify'),   //html美化
     less = require('gulp-less'),                    //less编译
     cleanCSS = require('gulp-clean-css'),           //压缩css
+    babel = require('gulp-babel'),                  //es6编译
     uglify = require('gulp-uglify'),                //js压缩
     webpack = require('webpack-stream'),            //js模块打包
     imgmin = require('gulp-imagemin');              //图片压缩
@@ -41,7 +42,7 @@ gulp.task('watch-jade',['jade'],reload);
 
 //  编译less
 gulp.task('less', function () {
-    return gulp.src(config.less)    //任务文件
+    return gulp.src(config.less.output)    //任务文件
                .pipe(less())    //编译
                .pipe(cleanCSS())    //压缩css
                .pipe(rename({suffix:'.min'}))   //重命名
@@ -59,11 +60,25 @@ gulp.task('watch-less',['less'],reload);
 //  合并压缩js
 gulp.task('scripts',function(){
     return gulp.src(config.scripts)
-             //.pipe(concat('app.min.js'))   //合并js
-               .pipe(uglify())  //压缩js
+               //.pipe(babel({
+               //    presets:['es2015']
+               //}))
+               //.pipe(concat('app.min.js'))   //合并js
+               //.pipe(uglify())  //压缩js
                .pipe(gulp.dest('./build/js'))
                .pipe(reload({stream: true}));
 });
+
+//webpack打包
+//gulp.task('webpack',['scripts'],function(){
+//    return gulp.src('build/js/index.js')
+//                .pipe(webpack({
+//                    output: {
+//                        filename: 'index.js',
+//                    }
+//                }))
+//                .pipe(gulp.dest('./build/js'))
+//});
 
 //监听js文件
 gulp.task('watch-js',['scripts'],reload);
@@ -105,7 +120,7 @@ gulp.task('default', ['clean','libs','imgmin','less','scripts','jade'], function
     });
 
     //  监控less文件
-    gulp.watch(config.less, ['watch-less']);
+    gulp.watch([config.less.output,config.less.all], ['watch-less']);
 
     //  监控js文件
     gulp.watch(config.scripts, ['watch-js']);
