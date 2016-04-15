@@ -31,7 +31,7 @@ gulp.task('jade',function(){
                .pipe(jade({pretty: true}))
                .pipe(htmlBeautify({indentSize: 1}))    //标签缩进
                .pipe(gulp.dest('./build/html'));         //输出文件夹
-})
+});
 
 //  监听jade
 gulp.task('watch-jade',['jade'],reload);
@@ -105,7 +105,7 @@ gulp.task('imgmin',function(){
                //   progressive: true, //类型：Boolean 默认：false 无损压缩jpg图片
                // }))
                .pipe(gulp.dest('./build/images'));
-})
+});
 
 
 /**
