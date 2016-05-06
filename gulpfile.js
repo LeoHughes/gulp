@@ -88,7 +88,7 @@ gulp.task('watch-js',['scripts'],reload);
 
 //  清空build资源文件夹
 gulp.task('clean',function(){
-    return del(config.build);
+    return del.sync(config.build);
 });
 
 //  将外部库文件写入build文件夹
