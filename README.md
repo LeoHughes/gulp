@@ -54,7 +54,7 @@ npm install
 
 gulp default
 
-访问http://localhost:8000/build/html/index.html
+访问http://localhost:8000/html/index.html
 
 --说明
 若重启default任务，build文件夹有部分文件未写入需要多重启几次default任务
