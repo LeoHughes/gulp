@@ -1,3 +1,5 @@
+//路径配置
+
 module.exports ={
   //  生产代码目录
   'dist':'./dist/',
