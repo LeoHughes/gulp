@@ -1,12 +1,12 @@
 module.exports ={
   //  生产代码目录
-  'build':'./build/**/*',
+  'dist':'./dist/',
   //  需要引入的外部库文件目录
   'libs':'./libs/**/',
   //  图片文件夹
   'img':['./src/images/*','./src/images/**/*'],
   //  html模版引擎
-  'html':['./src/views/**/*.jade','./src/views/*.jade','!./src/views/layout/*jade'],
+  'html':['./src/views/**/*.pug','./src/views/*.pug','!./src/views/layout/*.pug'],
   //  less文件夹
   'less':{
       'output':'src/less/*.less',

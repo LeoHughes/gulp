@@ -5,14 +5,16 @@
 //导入gulp
 var gulp = require('gulp');
 
+var path = require('path');
+
 //导入工具包
-var browserSync = require('browser-Sync'),          //browser-sync [网页自动刷新（服务器控制客户端同步刷新）]
+var browserSync = require('browser-sync'),          //browser-sync [网页自动刷新（服务器控制客户端同步刷新）]
     reload = browserSync.reload,
     config = require('./config'),                   //文件夹路径配置模块
     rename = require('gulp-rename'),                //文件重命名
     concat = require('gulp-concat'),                //文件合并
     del = require('del'),                           //文件夹删除清空
-    jade = require('gulp-jade'),                    //jade模板编译
+    pug = require('gulp-pug'),                      //pug模板编译
     htmlBeautify = require('gulp-html-beautify'),   //html美化
     less = require('gulp-less'),                    //less编译
     cleanCSS = require('gulp-clean-css'),           //压缩css
@@ -25,16 +27,19 @@ var browserSync = require('browser-Sync'),          //browser-sync [网页自动
 
 /**html**/
 
-//  编译jade
-gulp.task('jade',function(){
+//  编译pug
+gulp.task('pug',function(){
     return gulp.src(config.html)
-               .pipe(jade({pretty: true}))
-               .pipe(htmlBeautify({indentSize: 1}))    //标签缩进
-               .pipe(gulp.dest('./build/html'));         //输出文件夹
+               .pipe(pug({pretty: true}))
+               //标签缩进
+               .pipe(htmlBeautify({indentSize: 1}))
+               .pipe(gulp.dest(
+                 path.join(config.dist,'html')
+               ));
 });
 
-//  监听jade
-gulp.task('watch-jade',['jade'],reload);
+//  监听pug
+gulp.task('watch-pug',['pug'],reload);
 
 
 
@@ -42,11 +47,16 @@ gulp.task('watch-jade',['jade'],reload);
 
 //  编译less
 gulp.task('less', function () {
-    return gulp.src(config.less.output)    //任务文件
-               .pipe(less())    //编译
-               .pipe(cleanCSS())    //压缩css
-               .pipe(rename({suffix:'.min'}))   //重命名
-               .pipe(gulp.dest('./build/css'))
+    return gulp.src(config.less.output)
+               //编译less
+               .pipe(less())
+               //压缩css
+               .pipe(cleanCSS())
+               //重命名
+               .pipe(rename({suffix:'.min'}))
+               .pipe(gulp.dest(
+                 path.join(config.dist,'css')
+               ))
                .pipe(reload({stream: true}));
 });
 
@@ -57,28 +67,37 @@ gulp.task('watch-less',['less'],reload);
 
 /**js**/
 
-//  合并压缩js
 gulp.task('scripts',function(){
     return gulp.src(config.scripts)
+                //将es6转换为es5
                //.pipe(babel({
                //    presets:['es2015']
                //}))
-               //.pipe(concat('app.min.js'))   //合并js
-               //.pipe(uglify())  //压缩js
-               .pipe(gulp.dest('./build/js'))
+
+               //合并js
+               //.pipe(concat('app.min.js'))
+
+               //压缩js
+               //.pipe(uglify())
+
+               //利用webpack对js模块进行打包
+               .pipe(webpack({
+                  entry:{
+                    'main1':path.join(__dirname,'/src/js/main.js'),
+                    'main2':path.join(__dirname,'/src/js/main2.js')
+                  },
+                  resolve:{
+                    extensions: ['', '.js']
+                  },
+                  output:{
+                    filename:'[name].js'
+                  }
+               }))
+               .pipe(gulp.dest(
+                 path.join(config.dist,'js')
+               ))
                .pipe(reload({stream: true}));
 });
-
-//webpack打包
-//gulp.task('webpack',['scripts'],function(){
-//    return gulp.src('build/js/index.js')
-//                .pipe(webpack({
-//                    output: {
-//                        filename: 'index.js',
-//                    }
-//                }))
-//                .pipe(gulp.dest('./build/js'))
-//});
 
 //监听js文件
 gulp.task('watch-js',['scripts'],reload);
@@ -86,36 +105,42 @@ gulp.task('watch-js',['scripts'],reload);
 
 /**util**/
 
-//  清空build资源文件夹
+//  清空输出文件夹
 gulp.task('clean',function(){
-    return del(config.build);
+    return del(
+      path.join(config.dist,'*')
+    );
 });
 
-//  将外部库文件写入build文件夹
+//  将外部库文件写入输出文件夹
 gulp.task('libs',function(){
     return gulp.src(config.libs)
-               .pipe(gulp.dest('./build/libs'));
+               .pipe(gulp.dest(
+                 path.join(config.dist,'libs')
+               ));
 });
 
-//  图片压缩写入build
+//  图片压缩写入输出文件夹
 gulp.task('imgmin',function(){
     return gulp.src(config.img)
-               //.pipe(imgmin({
-               //   optimizationLevel: 5, //类型：Number  默认：3  取值范围：0-7（优化等级）
-               //   progressive: true, //类型：Boolean 默认：false 无损压缩jpg图片
-               // }))
-               .pipe(gulp.dest('./build/images'));
+              //  .pipe(imgmin({
+              //    optimizationLevel: 5, //类型：Number  默认：3  取值范围：0-7（优化等级）
+              //    progressive: true, //类型：Boolean 默认：false 无损压缩jpg图片
+              //  }))
+               .pipe(gulp.dest(
+                 path.join(config.dist,'images')
+               ));
 });
 
 
 /**
  * 默认任务
  */
-gulp.task('default', ['clean','libs','imgmin','less','scripts','jade'], function () {
+gulp.task('default', ['clean','libs','imgmin','less','scripts','pug'], function () {
 
     browserSync({
         server: {
-            baseDir: "./"   // 设定项目根目录启动服务
+            baseDir: path.join(__dirname,config.dist)   // 设定项目根目录启动服务
         }
     });
 
@@ -125,6 +150,6 @@ gulp.task('default', ['clean','libs','imgmin','less','scripts','jade'], function
     //  监控js文件
     gulp.watch(config.scripts, ['watch-js']);
 
-    //  监控jade文件
-    gulp.watch(config.html, ['watch-jade']);
+    //  监控pug文件
+    gulp.watch(config.html, ['watch-pug']);
 });
