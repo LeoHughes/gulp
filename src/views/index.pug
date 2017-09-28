@@ -8,15 +8,15 @@ html
 	body
 		.container
 			.jumbotron
-				- var text = '现在gulp开始工作了.';
+				- var text = '<strong>现在gulp开始工作了.</strong>';
 				h4 gulp工作流demo
-				p #{text}
+				p!=text
 
 			.col-xs-12
 				- var arr = ['john','tomi','jack'];
 				mixin list(arr)
 					each value in arr
-						li=value
+						li(style="color:#000;")=value
 
 				ul
 					+list(arr)
