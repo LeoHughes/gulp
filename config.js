@@ -8,7 +8,7 @@ module.exports = {
   //  图片文件夹
   'img': ['./src/images/*', './src/images/**/*'],
   //  html模版引擎
-  'html': ['./src/views/**/*.pug', './src/views/*.pug'],
+  'html': ['./src/views/**/*.pug', './src/views/*.pug', '!./src/views/layout/*.pug'],
   //  less文件夹
   'less': {
     'output': 'src/less/*.less',
