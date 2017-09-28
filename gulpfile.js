@@ -35,7 +35,8 @@ gulp.task('pug', function() {
     .pipe(htmlBeautify({ indentSize: 1 }))
     .pipe(gulp.dest(
       path.join(config.dist, 'html')
-    ));
+    ))
+    .pipe(reload({ stream: true }));
 });
 
 //  监听pug
