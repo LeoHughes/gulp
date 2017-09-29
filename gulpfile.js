@@ -106,8 +106,9 @@ gulp.task('watch-js', ['scripts'], reload);
 //  清空输出文件夹
 gulp.task('clean', function() {
   return del(
-    path.join(config.dist, '*')
-  );
+    path.join(config.dist, '*'), {
+      force: true
+    });
 });
 
 //  将外部库文件写入输出文件夹
